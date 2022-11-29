@@ -1,11 +1,12 @@
 import tempfile
 from http import HTTPStatus
 
+from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
-from posts.models import Comment, Group, Post, User
+from posts.models import Comment, Follow, Group, Post, User
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp()
 
@@ -158,21 +159,40 @@ class CommentCreateExistTest(TestCase):
         self.assertEqual(Comment.objects.count(), comments_count + 1)
         self.assertEqual(Comment.objects.first().text, form_data['text'])
 
-    def test_guest_comment_add(self):
-        """Тест запрета добавления комментария
-        неавториз. пользователем.
-        """
-        comments_count = Comment.objects.count()
-        form_data = {
-            'text': 'Тестовый комментарий 2'
-        }
-        response = self.guest_client.post(
-            reverse('posts:add_comment', args=(self.post_test.pk,)),
-            data=form_data
-        )
-        self.assertEqual(Comment.objects.count(), comments_count + 1)
-        redirect = "%s?next=%s" % (
-            reverse('users:login'),
-            reverse('posts:add_comment', args=(self.post_test.pk,))
-        )
-        self.assertRedirects(response, redirect)
+
+class FollowTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.post_autor = User.objects.create(username='autor')
+        cls.post_follower = User.objects.create(username='follower')
+        cls.post = Post.objects.create(text='Подпишись на меня',
+                                       author=cls.post_autor,)
+
+    def setUp(self):
+        self.authorized_client = Client()
+        self.authorized_client.force_login(self.post_follower)
+        self.follower_client = Client()
+        self.follower_client.force_login(self.post_autor)
+        cache.clear()
+
+    def test_follow_on_user(self):
+        """Проверка подписки на пользователя."""
+        count_follow = Follow.objects.count()
+        self.follower_client.post(
+            reverse('posts:profile_follow',
+                    kwargs={'username': self.post_follower}))
+        follow = Follow.objects.all().latest('id')
+        self.assertEqual(Follow.objects.count(), count_follow + 1)
+        self.assertEqual(follow.author_id, self.post_follower.id)
+        self.assertEqual(follow.user_id, self.post_autor.id)
+
+    def test_unfollow_on_user(self):
+        """Проверка отписки от пользователя."""
+        Follow.objects.create(user=self.post_autor,
+                              author=self.post_follower)
+        count_follow = Follow.objects.count()
+        self.follower_client.post(
+            reverse('posts:profile_unfollow',
+                    kwargs={'username': self.post_follower}))
+        self.assertEqual(Follow.objects.count(), count_follow - 1)

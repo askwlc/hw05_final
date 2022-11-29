@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% block title %}Последние обновления на сайте{% endblock %}
 {% load cache %}
-{% cache 20 index_page %}
-{% block content %} 
-<div class="container py-5"> 
+
+{% block content %}
+
+ 
+<div class="container py-5">
+  {% include 'posts/includes/switcher.html' %} 
+  {% cache 20 index_page %} 
   {% for post in page_obj %} 
    <article>
     <ul>
@@ -19,14 +24,15 @@
     <img class="card-img my-2" src="{{ im.url }}">
     {% endthumbnail %}      
     <p>{{ post.text|linebreaks }}</p>
-    {% if post.group %}
     <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
+
+    {% if post.group %}
     </article>
       <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a> 
-    {% endif %}  
+    {% endif %}
     {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
+  {% endcache %}
   {% include 'posts/includes/paginator.html' %} 
 </div> 
 {% endblock %}
-{% endcache %}

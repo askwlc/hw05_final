@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -165,3 +166,20 @@ class PostsViewTests(TestCase):
         )
         post_object = response.context['page_obj']
         self.assertNotIn(self.post.group, post_object)
+
+    def test_cache_index_page(self):
+        """Главная страница корректно кэширует список записей."""
+        post = Post.objects.create(
+            text='Тестовый пост',
+            author=self.user)
+        content_add = self.authorized_client.get(
+            reverse('posts:index')).content
+        post.delete()
+        content_delete = self.authorized_client.get(
+            reverse('posts:index')).content
+        self.assertEqual(content_add, content_delete)
+        cache.clear()
+        content_cache_clear = self.authorized_client.get(
+            reverse('posts:index')).content
+        self.assertNotEqual(content_add, content_cache_clear)
+

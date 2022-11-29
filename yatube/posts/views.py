@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CommentForm, PostForm
-from .models import Group, Post, User
+from .models import Comment, Follow, Group, Post, User
 from .utils import paginate_page
 
 
@@ -41,6 +41,7 @@ def profile(request, username):
     context = {
         'author': author,
         'page_obj': page_obj,
+        'following': 'following'
     }
     return render(request, template, context)
 
@@ -110,3 +111,31 @@ def add_comment(request, post_id):
         comment.post = post
         comment.save()
     return redirect('posts:post_detail', post_id=post_id)
+
+
+@login_required
+def follow_index(request):
+    user = request.user
+    posts = Post.objects.filter(author__following__user=user)
+    paginator = paginate_page(posts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+    return render(request, 'posts/follow.html', context)
+
+
+@login_required
+def profile_follow(request, username):
+    author = get_object_or_404(User, username=username)
+    if author != request.user:
+        Follow.objects.get_or_create(user=request.user, author=author)
+    return redirect('posts:profile', author)
+
+
+@login_required
+def profile_unfollow(request, username):
+    user_follower = get_object_or_404(Follow,
+                                      user=request.user,
+                                      author__username=username)
+    user_follower.delete()
+    return redirect('posts:profile', username)
