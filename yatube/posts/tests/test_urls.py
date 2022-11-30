@@ -36,7 +36,7 @@ class PostURLTests(TestCase):
             reverse('posts:post_detail', args=(
                     f'{cls.post.id}',)): 'posts/post_detail.html',
             reverse('posts:post_edit', args=(
-                    f'{cls.post.id}',)): 'posts/create_post.html',
+                    f'{cls.post.id}',)): 'posts/create_post.html',      
         }
 
     def setUp(self):
@@ -91,3 +91,8 @@ class PostURLTests(TestCase):
             with self.subTest(template=template):
                 response = self.authorized_client.get(url)
                 self.assertTemplateUsed(response, template)
+
+    def test_custom_404(self):
+        """Тест 404 использует соответствующий шаблон."""
+        response = self.authorized_client.get('/when/invalid-address/')
+        self.assertTemplateUsed(response, ('core/404.html'))

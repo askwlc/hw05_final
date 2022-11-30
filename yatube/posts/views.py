@@ -8,12 +8,10 @@ from .utils import paginate_page
 
 def index(request):
     """Главная страница"""
-    title = 'Последние обновления на сайте'
     template = "posts/index.html"
     post_list = Post.objects.all()
     page_obj = paginate_page(request, post_list)
     context = {
-        'title': title,
         'page_obj': page_obj,
     }
     return render(request, template, context)
@@ -38,10 +36,13 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = author.posts.all()
     page_obj = paginate_page(request, posts)
+    following = request.user.is_authenticated
+    if following:
+        following = author.following.filter(user=request.user).exists()
     context = {
         'author': author,
         'page_obj': page_obj,
-        'following': 'following'
+        'following': following
     }
     return render(request, template, context)
 
