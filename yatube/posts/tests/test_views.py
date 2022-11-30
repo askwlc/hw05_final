@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
-
 from posts.forms import PostForm
 from posts.models import Group, Post, User
 
@@ -182,4 +181,3 @@ class PostsViewTests(TestCase):
         content_cache_clear = self.authorized_client.get(
             reverse('posts:index')).content
         self.assertNotEqual(content_add, content_cache_clear)
-

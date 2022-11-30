@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CommentForm, PostForm
-from .models import Comment, Follow, Group, Post, User
+from .models import Follow, Group, Post, User
 from .utils import paginate_page
 
 
@@ -116,13 +116,10 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    user = request.user
-    posts = Post.objects.filter(author__following__user=user)
-    paginator = paginate_page(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
-    return render(request, 'posts/follow.html', context)
+    posts = Post.objects.filter(
+        author__following__user=request.user)
+    pagin = paginate_page(request, posts)
+    return render(request, 'posts/follow.html', context={'page_obj': pagin})
 
 
 @login_required
@@ -135,8 +132,10 @@ def profile_follow(request, username):
 
 @login_required
 def profile_unfollow(request, username):
-    user_follower = get_object_or_404(Follow,
-                                      user=request.user,
-                                      author__username=username)
+    user_follower = get_object_or_404(
+        Follow,
+        user=request.user,
+        author__username=username
+    )
     user_follower.delete()
     return redirect('posts:profile', username)

@@ -36,7 +36,7 @@ class PostURLTests(TestCase):
             reverse('posts:post_detail', args=(
                     f'{cls.post.id}',)): 'posts/post_detail.html',
             reverse('posts:post_edit', args=(
-                    f'{cls.post.id}',)): 'posts/create_post.html',      
+                    f'{cls.post.id}',)): 'posts/create_post.html',
         }
 
     def setUp(self):
