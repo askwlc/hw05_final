@@ -1,26 +1,139 @@
 {% extends "base.html" %}
-{% block title %}Технологии{% endblock %}
 {% block content %}
-{% comment %} Колонки с отступом сверху и снизу {% endcomment %}
-<main>
-<div class="container py-5">
-  <div class="row">
-    <h1>Вот что я умею</h1>
+<div id="page-container">
+  <main>
+    <div id="content-wrap" class="container py-5">
+      
 
-    <aside class="col-12 col-md-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          Python
-        </li>
-        <li class="list-group-item">
-          Django
-        </li>
-      </ul>
-    </aside>  
-    <article class="col-12 col-md-9">
-      <p>Текст страницы "Технологии"</p>
-    </article>
-  </div>
+<h1 class="display-5 fw-bold text-center">Что это за проект?</h1><br>
+<div class="row">
+<div class="col-auto col-md-2 nav flex-column nav-pills me-3" role="tablist" aria-orientation="vertical">
+  <button class="nav-link active" id="v-pills-project-tab" data-bs-toggle="pill" data-bs-target="#v-pills-project" type="button" role="tab" aria-controls="v-pills-project" aria-selected="true">
+      О проекте
+  </button>
+  <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-tools" type="button" role="tab" aria-controls="v-pills-tools" aria-selected="false">
+      Инструменты
+  </button>
+  <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-features" type="button" role="tab" aria-controls="v-pills-features" aria-selected="false">
+      Возможности
+  </button>
+  <button class="nav-link" id="v-pills-author-tab" data-bs-toggle="pill" data-bs-target="#v-pills-author" type="button" role="tab" aria-controls="v-pills-author" aria-selected="false">
+      Об авторе
+</button>
 </div>
-</main>
-{% endblock %} 
+<div class="col-12 col-md-9 tab-content" id="v-pills-tabContent">
+  <div class="tab-pane fade active show" id="v-pills-project" role="tabpanel" aria-labelledby="v-pills-project-tab">
+    <p>
+      </p><h4>Сайт был создан в рамках обучения на курсе Яндекс-Практикум: Бэкенд-разработчик на Python</h4>
+    <p></p>
+    <p>
+      </p><h6>Основные цели:</h6>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Разобраться в работе IDE Visual Studio Code</li>
+        <li class="list-group-item">Улучшить понимание принципов ООП</li>
+        <li class="list-group-item">Познакомиться с возможностями фреймворка Django</li>
+        <li class="list-group-item">Получить представления о фронтенд: HTML и CSS</li>
+        <li class="list-group-item">Сделать первый проект для своего портфолио</li>
+        <li class="list-group-item">Сдать все вовремя и не вылететь с курса</li>
+      </ul>
+    <p></p>
+  </div>
+  <div class="tab-pane fade" id="v-pills-tools" role="tabpanel" aria-labelledby="v-pills-tools-tab">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"> 
+        <img src="/static/img/fav/Python.jpg" width="30"> Python 3.7
+      </li>
+      <li class="list-group-item">
+        <img src="/static/img/fav/dj.png" width="30"> Django 2.2.16
+      </li>
+      <li class="list-group-item">
+        <img src="/static/img/fav/vscode.jpg" width="30"> VS Code
+      </li>
+      <li class="list-group-item">
+        <img src="/static/img/fav/bootstrap-logo.svg" width="30"> Bootstrap
+      </li>
+      <li class="list-group-item">
+        <img src="/static/img/fav/god.jpg" width="30"> Божья помощь
+      </li>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="v-pills-features" role="tabpanel" aria-labelledby="v-pills-features-tab">
+    <h2>Заложенные возможности по ТЗ заказчика:</h2>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Страницы: главная, страница сообщества, профайл автора с постами, карточка поста</li>
+      <li class="list-group-item">Создание и редактирование постов</li>
+      <li class="list-group-item">Создание комментариев к посту</li>
+      <li class="list-group-item">Работа с сообществами (создание через админ-панель и его опциональный выбор в посте)</li>
+      <li class="list-group-item">Возможность подписок на авторов (лента подписки с переключателем на главную страницу)</li>
+      <li class="list-group-item">Лента постов на главной странице</li>
+      <li class="list-group-item">Добавление картинок к постам</li>
+      <li class="list-group-item">Настроенная админ-панель</li>
+      <li class="list-group-item">Работа с пользователями: регистрация новых, вход/выход, смена пароля и восстановление пароля</li>
+    </ul>
+    <h2>Дополнительно разработано помимо пожеланий заказчика из ЯП:</h2>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Личный кабинет с полями за рамками стандартной модели</li>
+      <li class="list-group-item">Удаление постов</li>
+      <li class="list-group-item">Удаление комментариев</li>
+      <li class="list-group-item">Пересмотрена структура навигации, добавлен мини-раздел пользователя</li>
+      <li class="list-group-item">Немного красоты: кнопки действий вместо ссылок, картинки к кнопкам, посты в виде карточек</li>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="v-pills-author" role="tabpanel" aria-labelledby="v-pills-author-tab">
+    
+
+<div class="row">
+<div class="col-5 md-4">   
+  <img src="/static/img/me.jpg" class="img-fluid rounded">
+</div>
+<div class="col-12 md-8">
+  <article>
+    <h6 class="display-2">Привет, я Никита!</h6>
+    <p> 
+      </p><h4>
+        Занимаюсь бизнесом, а в свободное 
+        время ищу себя в IT-сфере. <br>
+      </h4> 
+    <p></p>
+    <p>
+    <p></p>  
+    <p>
+      <a href="https://www.instagram.com/askwlc/" target="_blank" title="Instagramm" alt="...">
+        <img src="/static/img/fav/insta.png" width="30"> 
+      </a>
+      <a href="https://vk.com/hobotron" target="_blank" title="VK" alt="...">
+        <img src="/static/img/fav/VK.jpg" width="30"> 
+      </a>
+      <a href="https://github.com/askwlc" target="_blank" title="GitHub" alt="...">
+        <img src="/static/img/fav/git.png" width="30"> 
+      </a>
+      <a href="" target="_blank" title="LinkedIn">
+        <img src="/static/img/fav/Linkedin.jpg" width="30" alt="..."> 
+      </a>
+    </p>
+    <p>
+      </p><ul class="list-group"> 
+        <h4>Когда я не ищу себя в IT, меня можно найти:</h4>
+        <strike>
+          <li class="list-group-item"> 
+            В компании друзей и настольных игр </li>
+          <li class="list-group-item"> 
+            Где-то в путешествиях </li>
+          <li class="list-group-item"> 
+            На склоне со сноубордом в руках </li>
+          <li class="list-group-item"> 
+            С джойстиком у приставки </li>
+          <li class="list-group-item"> 
+            На диване с книгой </li>
+        </strike>
+          <li class="list-group-item"> 
+             </li> 
+      </ul>   
+    <p></p>
+  </article>
+</div> 
+</div>
+    <div id="godown"></div>
+  </main>
+</div>
+{% endblock %}

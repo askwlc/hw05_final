@@ -17,6 +17,22 @@
           Избранные авторы
         </a>
       </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if index %}active{% endif %}"
+          href=""
+        >
+          Группы
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if index %}active{% endif %}"
+          href="{% url 'posts:post_create' %}"
+        >
+          Новая запись
+        </a>
+      </li>
     </ul>
   </div>
 {% endif %}

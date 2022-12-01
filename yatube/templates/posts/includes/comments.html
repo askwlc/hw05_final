@@ -1,0 +1,20 @@
+<p>
+    <h3>Комментарии посетителей:</h3>
+{% for comment in comments %}
+          <div class="media mb-4">
+            <div class="media-body">
+              <h5 class="mt-0">
+                 <a href="{% url 'posts:profile' comment.author.username %}">
+                  {{ comment.author.username }}
+                 </a> -
+                 <small>
+                 {{ comment.pub_date|date:"d E Y h:m:s" }}
+                </small>
+               </h5>
+               <p>
+                 {{ comment.text }}
+               </p>
+            </div>
+           </div>
+{% endfor %}
+</p>

@@ -1,0 +1,37 @@
+{% load thumbnail %}
+{% for post in page_obj %}
+<div class="row border rounded mb-4 shadow-sm">
+  <div class="col p-4 flex-column">
+    <div class="row">
+      <div class="col-auto col-md-6">
+        Автор:
+        <a href="{% url 'posts:profile' post.author %}">{{ post.author.username }}</a> 
+        <br>
+        <small>Дата публикации: {{ post.pub_date|date:"d E Y" }}</small>
+        <br>
+        <small>
+          Группа:
+          {% if post.group %}
+          <a href="{% url 'posts:group_list' post.group.slug %}">{{ post.group.title }}</a> 
+          {% endif %}
+        </small>
+      </div>
+    </div>
+  {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+  <img class="card-img my-2" src="{{ im.url }}">
+  {% endthumbnail %}      
+    <p>{{ post.text|linebreaks }}</p>
+    <div class="row">
+      <div class="col-auto">
+        <a class="btn btn-primary btn-sm" href="{% url 'posts:post_detail' post.pk %}" title="подробная информация">
+          <svg class="i-info" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M16 14 L16 23 M16 8 L16 10"></path>
+            <circle cx="16" cy="16" r="14"></circle>
+          </svg> подробная информация
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
