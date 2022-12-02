@@ -1,6 +1,7 @@
-from core.models import CreatedModel
 from django.contrib.auth import get_user_model
 from django.db import models
+
+from core.models import CreatedModel
 
 User = get_user_model()
 
@@ -21,10 +22,6 @@ class Group(models.Model):
 
 class Post(CreatedModel):
     """Модель для хранения постов."""
-    text = models.TextField(
-        verbose_name='Текст',
-        help_text='Введите текст поста'
-    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -70,10 +67,6 @@ class Comment(CreatedModel):
         related_name='comments',
         verbose_name='Автор'
     )
-    text = models.TextField(
-        verbose_name='Комментарий',
-        help_text='Текст нового комментария'
-    )
 
     class Meta:
         ordering = ('-pub_date',)
@@ -99,4 +92,11 @@ class Follow(models.Model):
     )
 
     class Meta:
-        unique_together = ['user', 'author']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'author'],
+                name='unique_follows'
+            )]
+
+    def __str__(self):
+        return f'{self.user} подписался на {self.author}'

@@ -37,8 +37,10 @@ def profile(request, username):
     posts = author.posts.all()
     page_obj = paginate_page(request, posts)
     following = request.user.is_authenticated
-    if following:
-        following = author.following.filter(user=request.user).exists()
+    following = (
+        request.user.is_authenticated
+        and author.following.filter(user=request.user).exists()
+    )
     context = {
         'author': author,
         'page_obj': page_obj,

@@ -11,6 +11,8 @@
       <li class="nav-item">
         <a class="nav-link {% if view_name == 'about:tech' %} active {% endif %}" href="{% url 'about:tech' %}">О проекте</a>
       </li>
+      &nbsp;
+      &nbsp;
       {% if user.is_authenticated %}
       <li>
         <div class="dropdown">

@@ -7,6 +7,10 @@ class CreatedModel(models.Model):
         'Дата создания',
         auto_now_add=True
     )
+    text = models.TextField(
+        verbose_name='Текст',
+        help_text='Введите текст'
+    )
 
     class Meta:
         abstract = True
