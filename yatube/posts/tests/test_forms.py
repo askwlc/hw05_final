@@ -1,11 +1,9 @@
 import tempfile
 from http import HTTPStatus
 
-from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
-
 from posts.models import Comment, Group, Post, User
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp()
@@ -158,4 +156,3 @@ class CommentCreateExistTest(TestCase):
         )
         self.assertEqual(Comment.objects.count(), comments_count + 1)
         self.assertEqual(Comment.objects.first().text, form_data['text'])
-

@@ -3,9 +3,8 @@ from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
-
 from posts.forms import PostForm
-from posts.models import Group, Follow, Post, User
+from posts.models import Follow, Group, Post, User
 
 
 class PaginatorViewsTest(TestCase):
@@ -138,7 +137,6 @@ class PostsViewTests(TestCase):
         self.assertEqual(len(response.context['page_obj']), 1)
         first_object = response.context['page_obj'][0]
         self.custom_test_page_show_correct_context(first_object)
-        
 
     def test_group_list_page_show_correct_context(self):
         """Шаблон group_list сформирован с правильным контекстом."""
