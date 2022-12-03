@@ -20,6 +20,7 @@
             Пользователь: {{ user.username }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <!--
             <li>
               <a class="dropdown-item" href="">
                 Моя страница
@@ -30,6 +31,7 @@
                 Личный кабинет
               </a>
             </li>
+            -->
             <li>
               <a class="dropdown-item" href="{% url 'users:password_change_form' %}">Изменить пароль</a>
               </a>
