@@ -3,7 +3,7 @@
 {% load cache %}
 {% block content %} 
   {% include 'posts/includes/switcher.html' %} 
-  {% cache 20 index_page %} 
+  {% cache 20 index_page request.path page_obj.number %} 
   {% include 'posts/includes/posts.html' %}
   {% endcache %}
   {% include 'posts/includes/paginator.html' %} 
