@@ -10,7 +10,7 @@
 
 1. Клонируйте репозиторий с помощью git
 ```
-git clone https://github.com/alexfofanov/hw05_final.git
+git clone https://github.com/askwlc/hw05_final.git
 ```
 2. Создайте виртуальное окружение активируйте и установите зависимости
 ```
