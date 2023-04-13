@@ -44,9 +44,9 @@ pkill -f gunicorn
 
 Стек технологий:
 
-Python3
-Django
-SQLite
-Gunicorn
-WhiteNoise
-GitHub Actions
+- Python3
+- Django
+- SQLite
+- Gunicorn
+- WhiteNoise
+- GitHub Actions
