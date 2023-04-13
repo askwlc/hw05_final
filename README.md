@@ -1,4 +1,5 @@
-# **Yatube social network** 
+Социальная сеть YaTube для публикации постов и картинок
+=====
 
 ![Python 3.7, 3.8](https://img.shields.io/badge/python-3.9-blue) ![django](https://img.shields.io/badge/Django-3.2-green)
 
