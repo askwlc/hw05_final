@@ -1,7 +1,9 @@
 Социальная сеть YaTube для публикации постов и картинок
 =====
 
-![Python 3.7, 3.8](https://img.shields.io/badge/python-3.9-blue) ![django](https://img.shields.io/badge/Django-3.2-green)
+[![Python](https://img.shields.io/badge/-Python-464641?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-464646?style=flat-square&logo=django)](https://www.djangoproject.com/)
+[![Pytest](https://img.shields.io/badge/Pytest-464646?style=flat-square&logo=pytest)](https://docs.pytest.org/en/6.2.x/)
 
 ## Описание:
 
@@ -53,10 +55,3 @@ gunicorn --bind 0.0.0.0:80 yatube.wsgi --daemon
 ```
 pkill -f gunicorn
 ```
-
-Стек технологий:
-
-![Python](https://img.shields.io/badge/Python-3.9.8-%23254F72?style=flat-square&logo=python&logoColor=yellow&labelColor=254f72)
-![Django](https://img.shields.io/badge/Django-2.2.28-0C4B33?style=flat-square&logo=django&logoColor=white&labelColor=0C4B33)
-![Django](https://img.shields.io/badge/Django%20REST-3.12.4-802D2D?style=flat-square&logo=django&logoColor=white&labelColor=802D2D)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.1.3-712CF9?style=flat-square&logo=bootstrap&logoColor=white&labelColor=712CF9)
